@@ -15,14 +15,6 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
   bool get isFormIsValid =>
       (_$isFormIsValidComputed ??= Computed<bool>(() => super.isFormIsValid))
           .value;
-  Computed<String> _$cnComputed;
-
-  @override
-  String get cn => (_$cnComputed ??= Computed<String>(() => super.cn)).value;
-  Computed<String> _$cdComputed;
-
-  @override
-  String get cd => (_$cdComputed ??= Computed<String>(() => super.cd)).value;
 
   final _$isLoadingAtom = Atom(name: '_CategoriasControllerBase.isLoading');
 
@@ -157,7 +149,7 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
   @override
   String toString() {
     final string =
-        'isLoading: ${isLoading.toString()},categoryName: ${categoryName.toString()},categoryDescription: ${categoryDescription.toString()},categoriesList: ${categoriesList.toString()},isFormIsValid: ${isFormIsValid.toString()},cn: ${cn.toString()},cd: ${cd.toString()}';
+        'isLoading: ${isLoading.toString()},categoryName: ${categoryName.toString()},categoryDescription: ${categoryDescription.toString()},categoriesList: ${categoriesList.toString()},isFormIsValid: ${isFormIsValid.toString()}';
     return '{$string}';
   }
 }

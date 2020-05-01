@@ -1,8 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:todo_app/app/modules/categorias/model/categoria_model.dart';
 import 'package:todo_app/app/modules/categorias/service/categoria_service.dart';
-
-import 'model/categoria_model.dart';
 import 'model/categoria_model.dart';
 
 part 'categorias_controller.g.dart';
@@ -38,11 +36,6 @@ List setListCategories(List value) => categoriesList = value;
 @computed
 bool get isFormIsValid => categoryName.length >= 3;  
  
-@computed
-String get cn => _categoryModel.categoryName = categoryName;
-
-@computed
-String get cd => _categoryModel.categoryDescription = categoryDescription;
 
 @observable
 List categoriesList;
@@ -50,7 +43,8 @@ List categoriesList;
 //method to save category name in db
 @action
 saveCategory() async{
- _categoryModel.categoryName = 'teste';
+ _categoryModel.categoryName = categoryName;
+ _categoryModel.categoryDescription = categoryDescription;
  _categoryModel.categoryDescription = 'teste descr';
  return await _serv.saveCategory(_categoryModel);
 }
@@ -63,7 +57,6 @@ getCategories() async{
 @action
 getAllCategories() async {
   isLoading = true;
-  //categoriesList = await this.getCategories();
   setListCategories(await this.getCategories());
   isLoading = false;
 } 

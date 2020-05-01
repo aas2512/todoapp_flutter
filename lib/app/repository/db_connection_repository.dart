@@ -22,7 +22,7 @@ print(_database);
   //METHOD TO SAVE ON DATABASE
   save(table, data) async{
     var conn = await database;
-    print(table);
+    
     
     return await conn.insert(table, data);
   }

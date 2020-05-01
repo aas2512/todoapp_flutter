@@ -24,6 +24,23 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
   @override
   String get cd => (_$cdComputed ??= Computed<String>(() => super.cd)).value;
 
+  final _$isLoadingAtom = Atom(name: '_CategoriasControllerBase.isLoading');
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.context.enforceReadPolicy(_$isLoadingAtom);
+    _$isLoadingAtom.reportObserved();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.context.conditionallyRunInAction(() {
+      super.isLoading = value;
+      _$isLoadingAtom.reportChanged();
+    }, _$isLoadingAtom, name: '${_$isLoadingAtom.name}_set');
+  }
+
   final _$categoryNameAtom =
       Atom(name: '_CategoriasControllerBase.categoryName');
 
@@ -127,9 +144,20 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
   }
 
   @override
+  List<dynamic> setListCategories(List<dynamic> value) {
+    final _$actionInfo =
+        _$_CategoriasControllerBaseActionController.startAction();
+    try {
+      return super.setListCategories(value);
+    } finally {
+      _$_CategoriasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     final string =
-        'categoryName: ${categoryName.toString()},categoryDescription: ${categoryDescription.toString()},categoriesList: ${categoriesList.toString()},isFormIsValid: ${isFormIsValid.toString()},cn: ${cn.toString()},cd: ${cd.toString()}';
+        'isLoading: ${isLoading.toString()},categoryName: ${categoryName.toString()},categoryDescription: ${categoryDescription.toString()},categoriesList: ${categoriesList.toString()},isFormIsValid: ${isFormIsValid.toString()},cn: ${cn.toString()},cd: ${cd.toString()}';
     return '{$string}';
   }
 }

@@ -15,23 +15,12 @@ class CategoriasPage extends StatefulWidget {
 class _CategoriasPageState
     extends ModularState<CategoriasPage, CategoriasController> {
   //use 'controller' variable to access controller
-
   @override
-  void didChangeDependecies(){
-    super.didChangeDependencies();
-    autorun((_) async{
-          controller.getAllCategories();
-
-    });
-
-    reaction(
-      (_) => controller.saveCategory,
-      (saveCategory){
-        print(saveCategory);
-      }
-    );
-
-  }
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+     controller.getAllCategories();
+  }  
 
   TextEditingController _categoryName = TextEditingController();
   TextEditingController _categoryDescription = TextEditingController();
@@ -93,18 +82,21 @@ class _CategoriasPageState
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
+      body: Observer(builder: (_){
+        return Container(
         child: Card(
-                child:ListView.builder(
+                child:controller.isLoading ? CircularProgressIndicator() : ListView.builder(
                 itemCount: controller.categoriesList.length,
                 itemBuilder: (context, index){
                 return ListTile(
-                  title: Text("${controller.categoriesList[index]}"),
+                  leading: Text("${controller.categoriesList[index]['id']}"),
+                  title: Text("${controller.categoriesList[index]['name']}"),
                 );
               })  
         
       ),
-      ),
+      );
+      }),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showFormDialog(),
         child: Icon(Icons.add),

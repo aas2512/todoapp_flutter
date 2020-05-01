@@ -16,6 +16,9 @@ CategoriaModel _categoryModel = CategoriaModel();
 CategoriaService _serv = CategoriaService();
 
 @observable
+bool isLoading = false;
+
+@observable
 String categoryName = '';
 
 @observable
@@ -28,6 +31,8 @@ void setNameCategory(String value) => categoryName = value;
 @action
 void setDescriptionCategory(String value) => categoryDescription = value;
 
+@action
+List setListCategories(List value) => categoriesList = value;
 
 //PARA TRABALHAR COM VALIDAÇÃO USA O @COMPUTED
 @computed
@@ -40,7 +45,7 @@ String get cn => _categoryModel.categoryName = categoryName;
 String get cd => _categoryModel.categoryDescription = categoryDescription;
 
 @observable
-List categoriesList = List();
+List categoriesList;
 
 //method to save category name in db
 @action
@@ -57,8 +62,10 @@ getCategories() async{
 
 @action
 getAllCategories() async {
-  
-  categoriesList = await this.getCategories();
-  
+  isLoading = true;
+  //categoriesList = await this.getCategories();
+  setListCategories(await this.getCategories());
+  isLoading = false;
 } 
+
 }

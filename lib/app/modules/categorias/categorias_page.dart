@@ -19,6 +19,10 @@ class _CategoriasPageState
   @override
   void didChangeDependecies(){
     super.didChangeDependencies();
+    autorun((_) async{
+          controller.getAllCategories();
+
+    });
 
     reaction(
       (_) => controller.saveCategory,
@@ -89,13 +93,17 @@ class _CategoriasPageState
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-            child: Text('Bem-vindo as Categorias'),
-          )
-        ],
+      body: Container(
+        child: Card(
+                child:ListView.builder(
+                itemCount: controller.categoriesList.length,
+                itemBuilder: (context, index){
+                return ListTile(
+                  title: Text("${controller.categoriesList[index]}"),
+                );
+              })  
+        
+      ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showFormDialog(),

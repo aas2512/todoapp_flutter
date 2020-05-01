@@ -62,6 +62,24 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
         name: '${_$categoryDescriptionAtom.name}_set');
   }
 
+  final _$categoriesListAtom =
+      Atom(name: '_CategoriasControllerBase.categoriesList');
+
+  @override
+  List<dynamic> get categoriesList {
+    _$categoriesListAtom.context.enforceReadPolicy(_$categoriesListAtom);
+    _$categoriesListAtom.reportObserved();
+    return super.categoriesList;
+  }
+
+  @override
+  set categoriesList(List<dynamic> value) {
+    _$categoriesListAtom.context.conditionallyRunInAction(() {
+      super.categoriesList = value;
+      _$categoriesListAtom.reportChanged();
+    }, _$categoriesListAtom, name: '${_$categoriesListAtom.name}_set');
+  }
+
   final _$saveCategoryAsyncAction = AsyncAction('saveCategory');
 
   @override
@@ -74,6 +92,13 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
   @override
   Future getCategories() {
     return _$getCategoriesAsyncAction.run(() => super.getCategories());
+  }
+
+  final _$getAllCategoriesAsyncAction = AsyncAction('getAllCategories');
+
+  @override
+  Future getAllCategories() {
+    return _$getAllCategoriesAsyncAction.run(() => super.getAllCategories());
   }
 
   final _$_CategoriasControllerBaseActionController =
@@ -104,7 +129,7 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
   @override
   String toString() {
     final string =
-        'categoryName: ${categoryName.toString()},categoryDescription: ${categoryDescription.toString()},isFormIsValid: ${isFormIsValid.toString()},cn: ${cn.toString()},cd: ${cd.toString()}';
+        'categoryName: ${categoryName.toString()},categoryDescription: ${categoryDescription.toString()},categoriesList: ${categoriesList.toString()},isFormIsValid: ${isFormIsValid.toString()},cn: ${cn.toString()},cd: ${cd.toString()}';
     return '{$string}';
   }
 }

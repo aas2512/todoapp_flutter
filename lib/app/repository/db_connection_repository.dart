@@ -33,9 +33,23 @@ print(_database);
     return await conn.query(table);
   }
 
+  getById(String table, itemId) async {
+    var conn = await database;
+    return conn.query(table, where: "id=?", whereArgs: [itemId]);
+  }
+
   //dispose will be called automatically
   @override
-  void dispose() {
-    
+  void dispose() {}
+
+  updateById(table, data, itemId) async {
+    var conn = await database;
+    print("Dados: $data");
+    return conn.update(table, data, where: "id=?", whereArgs: [itemId]);
+  }
+
+  deleteById(table, itemId) async {
+    var conn = await database;
+    return conn.delete(table, where: "id=?", whereArgs: [itemId]);
   }
 }

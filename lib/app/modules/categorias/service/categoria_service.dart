@@ -10,15 +10,29 @@ CategoriaService(){
   _repo = DbConnectionRepository();
 }
 
+  getCategories() async {
+    return await _repo.getAllData('categories');
+  }
+
+  getCategoryById(categoryId) async {
+   return await _repo.getById('categories', categoryId);
+  }
+
   saveCategory(CategoriaModel category) async{
     return await _repo.save('categories', category.categoryMap());
   }
 
-  getCategories() async {
-    return await _repo.getAllData('categories');
+  updateCategory(itemId, category) async {
+    return await _repo.updateById('categories', category, itemId);
   }
 
   @override
   void dispose() {
   }
+
+  deleteCategory(categoryId) async {
+    return await _repo.deleteById('categories', categoryId);
+  }
+
+  
 }

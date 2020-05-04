@@ -15,15 +15,14 @@ class DbConnectionRepository extends Disposable {
   Future<Database> get database async {
     if (_database != null) return _database;
     _database = await _connection.setDatabase();
-print(_database);
+    
     return _database;
   }
 
   //METHOD TO SAVE ON DATABASE
   save(table, data) async{
     var conn = await database;
-    
-    
+     
     return await conn.insert(table, data);
   }
 
@@ -35,6 +34,7 @@ print(_database);
 
   getById(String table, itemId) async {
     var conn = await database;
+
     return conn.query(table, where: "id=?", whereArgs: [itemId]);
   }
 
@@ -45,11 +45,13 @@ print(_database);
   updateById(table, data, itemId) async {
     var conn = await database;
     print("Dados: $data");
+
     return conn.update(table, data, where: "id=?", whereArgs: [itemId]);
   }
 
   deleteById(table, itemId) async {
     var conn = await database;
+    
     return conn.delete(table, where: "id=?", whereArgs: [itemId]);
   }
 }

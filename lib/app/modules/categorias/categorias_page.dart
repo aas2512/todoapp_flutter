@@ -14,7 +14,7 @@ class CategoriasPage extends StatefulWidget {
 
 class _CategoriasPageState
     extends ModularState<CategoriasPage, CategoriasController> {
-      final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   //use 'controller' variable to access controller
 
   @override
@@ -37,22 +37,20 @@ class _CategoriasPageState
   /*
   * SNACKBAR
   */
-  _snackbar(int tipo){
+  _snackbar(int tipo) {
     String texto;
-    if(tipo == 1){
+    if (tipo == 1) {
       texto = "Categoria adicionada com sucesso!";
-    }else if(tipo == 2){
+    } else if (tipo == 2) {
       texto = "Categoria atualizada com sucesso!";
-    }else{
+    } else {
       texto = "Categoria apagada com sucesso!";
     }
-    return _scaffoldKey.currentState.showSnackBar(
-      SnackBar(content: Text(texto),
-      duration: Duration(seconds:3),
-      )
-    );
+    return _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(texto),
+      duration: Duration(seconds: 3),
+    ));
   }
-
 
   //DIALOG TO ADD NEW CATEGORY IN TODO APP
   _showFormDialog() {
@@ -66,19 +64,17 @@ class _CategoriasPageState
                 return FlatButton(
                   onPressed: controller.isFormIsValid
                       ? () {
-                          controller
-                              .saveCategory()
-                              .then((value) {
-                                print('foi');
-                                _snackbar(1);
-                                controller.getAllCategories();
-                                Future.delayed(Duration(seconds: 1))
-                              .then((value) => Modular.to.pop());
-                              _categoryName.text = "";
-                              _categoryDescription.text = "";
-                              });
-                          
-                          
+                          controller.saveCategory().then((value) {
+                            print('foi');
+
+                            controller.getAllCategories();
+                            Future.delayed(Duration(seconds: 1))
+                                .then((value) => _snackbar(1));
+
+                            Modular.to.pop();
+                            _categoryName.text = "";
+                            _categoryDescription.text = "";
+                          });
                         }
                       : null,
                   child: Text('Salvar'),
@@ -142,10 +138,9 @@ class _CategoriasPageState
                             controller.editCategoryName.text = "";
                             controller.editCategoryDescription.text = "";
                           });
-                          
                         }
                       : null,
-                  child: Text('Salvar'),
+                  child: Text('Atualizar'),
                 );
               }),
               FlatButton(
@@ -184,6 +179,43 @@ class _CategoriasPageState
   }
   //END EDIT DIALOG CATEGORY
 
+  /*
+  * DIALOG TO DELETE CATEGORY
+  */
+  _deleteFormDialog(int categoryId) {
+    return showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (_) {
+          return AlertDialog(
+              actions: <Widget>[
+                FlatButton(
+                  color: Colors.red,
+                  onPressed: () {
+                    Modular.to.pop();
+                  },
+                  child: Text('Não'),
+                ),
+                Observer(builder: (_) {
+                  return FlatButton(
+                    color: Colors.green,
+                    onPressed: () {
+                      controller.deleteCategory(categoryId).then((value) {
+                        Modular.to.pop();
+                        _snackbar(3);
+                        controller.getAllCategories();
+                      });
+                    },
+                    child: Text('Sim'),
+                  );
+                }),
+              ],
+              title: Text('Apagar Categoria'),
+              content: Text('Você tem certeza?'));
+        });
+  }
+  //END EDIT DIALOG CATEGORY
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -209,7 +241,6 @@ class _CategoriasPageState
                                         .toString())
                                     .then((value) => _editFormDialog(controller
                                         .categoriesList[index]['id']));
-
                               }),
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -218,10 +249,8 @@ class _CategoriasPageState
                                   "${controller.categoriesList[index]['name']}"),
                               IconButton(
                                 icon: Icon(Icons.delete),
-                                onPressed: () {
-                                  controller.deleteCategory(controller.categoriesList[index]['id']).then((value) => controller.getAllCategories());
-                                  
-                                },
+                                onPressed: () => _deleteFormDialog(
+                                    controller.categoriesList[index]['id']),
                               )
                             ],
                           ),

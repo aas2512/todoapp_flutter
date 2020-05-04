@@ -24,6 +24,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         children: <Widget>[],
       ),
       drawer: CustomDrawerWidget(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()=> Modular.to.pushNamed('/todo_create'),
+        child: Icon(Icons.add),),
     );
   }
 }

@@ -154,7 +154,7 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
   final _$deleteCategoryAsyncAction = AsyncAction('deleteCategory');
 
   @override
-  Future<dynamic> deleteCategory(int categoryId) {
+  Future deleteCategory(int categoryId) {
     return _$deleteCategoryAsyncAction
         .run(() => super.deleteCategory(categoryId));
   }

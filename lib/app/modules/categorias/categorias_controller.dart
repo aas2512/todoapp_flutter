@@ -72,7 +72,7 @@ Future updateCategory(int categoryId) async{
 * METHOD TO DELETE CATEGORY
 */
 @action 
-Future deleteCategory(int categoryId) async{
+deleteCategory(int categoryId) async{
   return _serv.deleteCategory(categoryId);
 }
 

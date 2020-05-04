@@ -5,15 +5,6 @@ class CategoriaModel {
 
 CategoriaModel({this.id, this.name, this.description});
 
-  categoryMap(){
-    var map = Map<String, dynamic>();
-    map['id'] = id;
-    map['name'] = name;
-    map['description'] = description;
-
-    return map;
-  }
-
     Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       'name': name,
@@ -24,7 +15,6 @@ CategoriaModel({this.id, this.name, this.description});
     }
     return map;
   }
-
 
   CategoriaModel.fromMap(Map<String, dynamic> map) {
     id = map[id];

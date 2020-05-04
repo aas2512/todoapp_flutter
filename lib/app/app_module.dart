@@ -1,3 +1,4 @@
+import 'package:todo_app/app/modules/todo/todo_module.dart';
 import 'package:todo_app/app/service/db_connection_service.dart';
 import 'package:todo_app/app/repository/db_connection_repository.dart';
 import 'package:todo_app/app/modules/categorias/categorias_module.dart';
@@ -19,6 +20,7 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
+        Router('/todo_create', module: TodoModule()),
         Router('/categorias', module: CategoriasModule()),
         Router(Modular.initialRoute, module: HomeModule()),
       ];

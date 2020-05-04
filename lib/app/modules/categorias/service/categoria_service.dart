@@ -6,33 +6,37 @@ class CategoriaService extends Disposable {
  
 DbConnectionRepository _repo = DbConnectionRepository();
 
+final _table = "categories";
+
 CategoriaService(){
   _repo = DbConnectionRepository();
 }
 
   getCategories() async {
-    return await _repo.getAllData('categories');
+    return await _repo.getAllData(_table);
   }
 
   getCategoryById(categoryId) async {
-   return await _repo.getById('categories', categoryId);
+   return await _repo.getById(_table, categoryId);
   }
 
   saveCategory(CategoriaModel category) async{
-    return await _repo.save('categories', category.categoryMap());
+    return await _repo.save(_table, category.toMap());
   }
 
   updateCategory(itemId, category) async {
-    return await _repo.updateById('categories', category, itemId);
+    return await _repo.updateById(_table, category, itemId);
+  }
+
+  deleteCategory(categoryId) async {
+    return await _repo.deleteById(_table, categoryId);
   }
 
   @override
   void dispose() {
   }
 
-  deleteCategory(categoryId) async {
-    return await _repo.deleteById('categories', categoryId);
-  }
+  
 
   
 }

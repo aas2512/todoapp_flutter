@@ -20,6 +20,7 @@ class DbConnectionService extends Disposable {
 
   _onCreatingDatabase(Database db, int version) async{
     await db.execute("CREATE TABLE categories(id INTEGER PRIMARY KEY, name TEXT, description TEXT)");
+    await db.execute("CREATE TABLE todos(id INTEGER PRIMARY KEY, title TEXT, description TEXT, todoDate TEXT, categoryId INTEGER, isFinished INTEGER)");
   }
   
   @override

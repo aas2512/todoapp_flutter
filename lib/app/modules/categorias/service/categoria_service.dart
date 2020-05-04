@@ -20,7 +20,7 @@ CategoriaService(){
    return await _repo.getById(_table, categoryId);
   }
 
-  saveCategory(CategoriaModel category) async{
+  saveCategory( category) async{
     return await _repo.save(_table, category.toMap());
   }
 

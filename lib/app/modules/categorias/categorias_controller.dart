@@ -61,6 +61,7 @@ Future saveCategory() async{
 /*
 * METHOD TO UPDATE CATEGORY
 */
+@action
 Future updateCategory(int categoryId) async{
   _categoryModel.name = editCategoryName.text;
   _categoryModel.description = editCategoryDescription.text;

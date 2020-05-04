@@ -13,7 +13,7 @@ class DbConnectionService extends Disposable {
     var dir = await getApplicationDocumentsDirectory();
     //JOIN PATH WITH NAME OF DATABASE
     var path = join(dir.path, 'db_todo');
-    database = await openDatabase(path, version: 1, onCreate: _onCreatingDatabase);
+    database = await openDatabase(path, version: 2, onCreate: _onCreatingDatabase);
 
     return database;
   }

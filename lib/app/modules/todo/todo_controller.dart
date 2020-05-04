@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/app/modules/categorias/service/categoria_service.dart';
 import 'package:todo_app/app/modules/todo/model/todo_model.dart';
+import 'package:todo_app/app/modules/todo/service/todo_service.dart';
 part 'todo_controller.g.dart';
 
 class TodoController = _TodoControllerBase with _$TodoController;
@@ -11,6 +12,7 @@ abstract class _TodoControllerBase with Store {
 
   CategoriaService _catSer = CategoriaService();
   TodoModel _todoMod = TodoModel();
+  TodoService _serv = TodoService();
   DateTime _date = DateTime.now();
   
   @observable
@@ -23,7 +25,7 @@ abstract class _TodoControllerBase with Store {
   var todoDate = TextEditingController();
 
   @observable
-  String selectedValue;
+  var selectedValue;
 
   @action
   void setTodoTitle(String value) => todoTitle.text = value;
@@ -36,8 +38,12 @@ abstract class _TodoControllerBase with Store {
   
   ObservableList<DropdownMenuItem> categoriesDrop = ObservableList<DropdownMenuItem>();
 
+  List todoList;
+
   @action
-  void selectedDrop(String value) => selectedValue = value;
+  void setSelectedItem(value) {
+      selectedValue = value;
+  } 
  
   @action
   selectTodoDate(context) async {
@@ -49,13 +55,36 @@ abstract class _TodoControllerBase with Store {
     }
   }
 
+  @action
   getCategories() async {
     var categories = await _catSer.getCategories();
-    
+  
     categories.forEach((category){
       categoriesDrop.add(DropdownMenuItem(child: Text(category['name']), value: category['id'],));
+      print(category['id']); 
     });
 
-    print(categoriesDrop); 
+    
+  }
+
+  @action
+  Future saveTodo() async {
+    print(selectedValue);
+    _todoMod.title = todoTitle.text;
+    _todoMod.description = todoDescription.text;
+    _todoMod.todoDate = todoDate.text;
+    _todoMod.categoryId = selectedValue;
+    _todoMod.isFinished = 0;
+
+  var _ret =  await _serv.saveTodo(_todoMod); 
+  
+  return _ret;
+  }
+
+  @action
+  getTodos() async {
+      todoList =  await _serv.getAllTodos();
+      print(todoList);
+      return todoList;
   }
 }

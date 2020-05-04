@@ -71,14 +71,14 @@ mixin _$TodoController on _TodoControllerBase, Store {
   final _$selectedValueAtom = Atom(name: '_TodoControllerBase.selectedValue');
 
   @override
-  String get selectedValue {
+  dynamic get selectedValue {
     _$selectedValueAtom.context.enforceReadPolicy(_$selectedValueAtom);
     _$selectedValueAtom.reportObserved();
     return super.selectedValue;
   }
 
   @override
-  set selectedValue(String value) {
+  set selectedValue(dynamic value) {
     _$selectedValueAtom.context.conditionallyRunInAction(() {
       super.selectedValue = value;
       _$selectedValueAtom.reportChanged();
@@ -90,6 +90,27 @@ mixin _$TodoController on _TodoControllerBase, Store {
   @override
   Future selectTodoDate(dynamic context) {
     return _$selectTodoDateAsyncAction.run(() => super.selectTodoDate(context));
+  }
+
+  final _$getCategoriesAsyncAction = AsyncAction('getCategories');
+
+  @override
+  Future getCategories() {
+    return _$getCategoriesAsyncAction.run(() => super.getCategories());
+  }
+
+  final _$saveTodoAsyncAction = AsyncAction('saveTodo');
+
+  @override
+  Future<dynamic> saveTodo() {
+    return _$saveTodoAsyncAction.run(() => super.saveTodo());
+  }
+
+  final _$getTodosAsyncAction = AsyncAction('getTodos');
+
+  @override
+  Future getTodos() {
+    return _$getTodosAsyncAction.run(() => super.getTodos());
   }
 
   final _$_TodoControllerBaseActionController =
@@ -116,10 +137,10 @@ mixin _$TodoController on _TodoControllerBase, Store {
   }
 
   @override
-  void selectedDrop(String value) {
+  void setSelectedItem(dynamic value) {
     final _$actionInfo = _$_TodoControllerBaseActionController.startAction();
     try {
-      return super.selectedDrop(value);
+      return super.setSelectedItem(value);
     } finally {
       _$_TodoControllerBaseActionController.endAction(_$actionInfo);
     }

@@ -15,6 +15,8 @@ class TodoPage extends StatefulWidget {
 class _TodoPageState extends ModularState<TodoPage, TodoController> {
   //use 'controller' variable to access controller
 
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -30,10 +32,17 @@ class _TodoPageState extends ModularState<TodoPage, TodoController> {
       print(controller.categoriesDrop);
     }); */
   } 
+  
+  _showSnackBar(){
+    return _scaffoldKey.currentState.showSnackBar(
+      SnackBar(content: Text('Tarefa adicionada com sucesso!',), duration: Duration(seconds: 2),)
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
       ),
@@ -63,6 +72,7 @@ class _TodoPageState extends ModularState<TodoPage, TodoController> {
             ),
             Observer(builder: (_){
               return TextField(
+                onChanged: controller.setTodoDate,
               controller: controller.todoDate,
               decoration: InputDecoration(
                   labelText: "YY-MM-DD",
@@ -72,21 +82,32 @@ class _TodoPageState extends ModularState<TodoPage, TodoController> {
             }),
             Observer(builder: (_){
               return DropdownButtonFormField(
-                decoration: InputDecoration(
-                  labelText: "Categoria"
-                ),
               value: controller.selectedValue,
               items: controller.categoriesDrop,
-              onChanged: (value) => controller.selectedDrop,
+              onChanged: (value) {
+                
+              controller.setSelectedItem(value);
+              }
+                ,
               hint: Text('Selecione uma categoria'),
             );
             }),
-            Observer(builder: (_){
-              return RaisedButton(
-              onPressed: controller.isFormIsValid ? () {} : null,
+            RaisedButton(
+              onPressed: () {
+
+                controller.saveTodo().then((value) {
+                  if(value > 0){
+                    controller.todoTitle.text = "";
+                    controller.todoDescription.text = "";
+                    controller.todoDate.text = "";
+                      
+                    _showSnackBar();
+                  }
+                });
+              } ,
               child: Text('Salvar'),
-            );
-            },)
+            )
+            
           ],
                )
       ),

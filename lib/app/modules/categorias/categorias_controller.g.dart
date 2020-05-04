@@ -151,6 +151,14 @@ mixin _$CategoriasController on _CategoriasControllerBase, Store {
     return _$saveCategoryAsyncAction.run(() => super.saveCategory());
   }
 
+  final _$updateCategoryAsyncAction = AsyncAction('updateCategory');
+
+  @override
+  Future<dynamic> updateCategory(int categoryId) {
+    return _$updateCategoryAsyncAction
+        .run(() => super.updateCategory(categoryId));
+  }
+
   final _$deleteCategoryAsyncAction = AsyncAction('deleteCategory');
 
   @override

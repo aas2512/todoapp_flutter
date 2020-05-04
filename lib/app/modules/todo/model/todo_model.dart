@@ -1,10 +1,10 @@
 class TodoModel {
-  final int id;
-  final String title;
-  final String description;
-  final String todoDate;
-  final int categoryId;
-  final int isFinished;
+  int id;
+  String title;
+  String description;
+  String todoDate;
+  int categoryId;
+  int isFinished;
 
 
   TodoModel({this.id, this.title, this.description, this.todoDate, this.categoryId, this.isFinished});

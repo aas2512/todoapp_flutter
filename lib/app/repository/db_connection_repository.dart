@@ -29,6 +29,7 @@ class DbConnectionRepository extends Disposable {
   //METHOD TO GET ALLDATA FROM TABLE
   Future<List>getAllData(table) async {
     var conn = await database;
+    
     return await conn.query(table);
   }
 

@@ -1,4 +1,4 @@
-#Mon May 04 00:06:31 BRT 2020
-base.0=/Volumes/\#MyFiles/\#Developer/Flutter/\#Estudo/todoapp_flutter/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
+#Wed May 06 21:31:33 BRT 2020
+base.0=C\:\\Users\\alan_\\\#Developer\\\#Flutter\\todoapp_flutter\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

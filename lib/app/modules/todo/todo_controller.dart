@@ -14,6 +14,9 @@ abstract class _TodoControllerBase with Store {
   TodoModel _todoMod = TodoModel();
   TodoService _serv = TodoService();
   DateTime _date = DateTime.now();
+
+  @observable
+  bool isLoading = false;
   
   @observable
   var todoTitle = TextEditingController();
@@ -83,8 +86,13 @@ abstract class _TodoControllerBase with Store {
 
   @action
   getTodos() async {
-      todoList =  await _serv.getAllTodos();
-      print(todoList);
+      isLoading = true;
+      await _serv.getAllTodos().then((value) {
+        todoList = value;
+         print(todoList);
+         isLoading = false;
+      }); 
+     
       return todoList;
   }
 }

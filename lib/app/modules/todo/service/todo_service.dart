@@ -13,7 +13,7 @@ class TodoService extends Disposable {
 
   }
 
-  getAllTodos() async {
+ Future getAllTodos() async {
     return await _repo.getAllData(_table);
   }
 

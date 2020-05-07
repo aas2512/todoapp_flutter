@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobx/mobx.dart';
 import 'todo_controller.dart';
 
 class TodoPage extends StatefulWidget {
@@ -19,7 +18,6 @@ class _TodoPageState extends ModularState<TodoPage, TodoController> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller.getCategories();
   }

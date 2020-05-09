@@ -134,6 +134,7 @@ class _CategoriasPageState
                       ? () {
                           controller.updateCategory(categoryId).then((value) {
                             Modular.to.pop();
+                            controller.getAllCategories();
                             _snackbar(2);
                             controller.editCategoryName.text = "";
                             controller.editCategoryDescription.text = "";

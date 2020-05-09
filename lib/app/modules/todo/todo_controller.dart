@@ -53,7 +53,7 @@ abstract class _TodoControllerBase with Store {
     var _pickDate = await showDatePicker(context: context, initialDate: _date, firstDate: DateTime(2000), lastDate: DateTime(2099));
     if(_pickDate != null){
       _date = _pickDate;
-      setTodoDate(DateFormat('yyyy-MM-dd').format(_pickDate));
+      setTodoDate(DateFormat('dd/MM/yyyy').format(_pickDate));
       print(todoDate.text);
     }
   }
@@ -85,7 +85,7 @@ abstract class _TodoControllerBase with Store {
   }
 
   @action
-  getTodos() async {
+  getTodos({int catId = 0}) async {
       isLoading = true;
       await _serv.getAllTodos().then((value) {
         todoList = value;
@@ -94,5 +94,10 @@ abstract class _TodoControllerBase with Store {
       }); 
      
       return todoList;
+  }
+
+  @action
+  Future deleteTodo(itemId) async {
+    return await _serv.deleteTodo(itemId);
   }
 }

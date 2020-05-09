@@ -43,6 +43,7 @@ class _TodoPageState extends ModularState<TodoPage, TodoController> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(widget.title),
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){Modular.to.popAndPushNamed(Modular.initialRoute);}),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -73,8 +74,8 @@ class _TodoPageState extends ModularState<TodoPage, TodoController> {
                 onChanged: controller.setTodoDate,
               controller: controller.todoDate,
               decoration: InputDecoration(
-                  labelText: "YY-MM-DD",
-                  hintText: "YY-MM-DD",
+                  labelText: "DD/MM/YYYY",
+                  hintText: "DD/MM/YYYY",
                   prefixIcon: InkWell(onTap:()=> controller.selectTodoDate(context) ,child: Icon(Icons.calendar_today))),
             );
             }),

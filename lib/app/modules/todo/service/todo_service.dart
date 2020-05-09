@@ -21,6 +21,10 @@ class TodoService extends Disposable {
     return await _repo.save(_table, todo.toMap());
   }
 
+  deleteTodo(itemId) async {
+    return await _repo.deleteById(_table, itemId);
+  }
+
   @override
   void dispose() {}
 }

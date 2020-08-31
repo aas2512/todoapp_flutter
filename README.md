@@ -1,6 +1,6 @@
-# todo_app
+# Todo APP
 
-&#x27;A new Flutter project. Created by Slidy&#x27;
+&#x27;Um simples Todo App feito em Flutter usando o Modular/Slidy/Mobx&#x27;
 
 ## Getting Started
 
